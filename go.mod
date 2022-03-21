@@ -1,4 +1,4 @@
-module github.com/liyue201/gostl
+module github.com/lsarrazi/gostl
 
 go 1.12
 
