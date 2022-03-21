@@ -215,13 +215,35 @@ func (t *RbTree) Delete(node *Node) {
 	} else {
 		y.parent.right = x
 	}
+	
+	oc := y.color
 
 	if y != z {
-		z.key = y.key
-		z.value = y.value
+		//z.key = y.key
+		//z.value = y.value
+
+          	y.parent = z.parent
+
+          	if t.root == z {
+               		t.root = y
+           	} else if z.parent.left == z {
+           		y.parent.left = y
+         	} else {
+          		y.parent.right = y
+        	}
+
+         	y.left = z.left
+         	y.left.parent = y
+
+         	y.right = z.right
+         	if y.right != nil {
+		    	y.right.parent = y
+         	}
+
+    		y.color = z.color
 	}
 
-	if y.color == BLACK {
+	if oc == BLACK {
 		t.rbDeleteFixup(x, xparent)
 	}
 	t.size--
